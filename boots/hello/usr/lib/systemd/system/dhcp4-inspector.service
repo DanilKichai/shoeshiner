@@ -1,0 +1,11 @@
+[Unit]
+Description=DHCPv4 Inspector
+After=systemd-udevd.service
+Before=systemd-networkd.service
+
+[Service]
+Type=notify
+EnvironmentFile=/etc/default/inspector
+Restart=no
+ExecStartPre=/usr/bin/ip link set dev "${NETWORK_INTERFACE}" up 
+ExecStart=/usr/local/bin/inspector "--interface=${NETWORK_INTERFACE}" "--protocol=dhcp4" "--directory=/var/lib/inspector"

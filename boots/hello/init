@@ -13,15 +13,15 @@ fatal () {
     exit 1
 }
 
-if ! mkdir /efivars; then
-    fatal "Make efivars directory failed!"
+if ! mkdir --parents /shoeshiner/efivars; then
+    fatal "Make shoeshiner directory structure failed!"
 fi
 
-if ! mount --types efivarfs efivars /efivars; then
+if ! mount --types efivarfs efivars /shoeshiner/efivars; then
     fatal "Mount efivarfs failed!"
 fi
 
-if ! bootstrap --efivars /efivars; then
+if ! bootstrap --efivars /shoeshiner/efivars; then
     fatal "Bootstrap failed!"
 fi
 

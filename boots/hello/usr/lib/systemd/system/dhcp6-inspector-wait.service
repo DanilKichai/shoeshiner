@@ -1,0 +1,10 @@
+[Unit]
+Description=DHCPv6 Inspector Wait
+After=dhcp6-inspector.service
+Requires=dhcp6-inspector.service
+
+[Service]
+Type=oneshot
+Restart=no
+ExecStart=/usr/bin/cat "/var/lib/inspector/dhcp6/trigger"
+TimeoutStartSec=60s

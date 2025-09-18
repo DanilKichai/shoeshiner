@@ -18,8 +18,8 @@ Shoeshiner or boot polisher is an occupation in which a person cleans and buffs 
 
 * Copy the example of the appendix directory to your others.
 ```
-cp -ar examples/hello ~/my_test1
-cp -ar examples/hello ~/my_test2
+cp -ar boots/hello ~/my_test1
+cp -ar boots/hello ~/my_test2
 ...
 ```
 * Make any changes to your directories.

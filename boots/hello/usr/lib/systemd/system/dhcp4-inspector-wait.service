@@ -1,0 +1,10 @@
+[Unit]
+Description=DHCPv4 Inspector Wait
+After=dhcp4-inspector.service
+Requires=dhcp4-inspector.service
+
+[Service]
+Type=oneshot
+Restart=no
+ExecStart=/usr/bin/cat /var/lib/inspector/dhcp4/trigger
+TimeoutStartSec=60s

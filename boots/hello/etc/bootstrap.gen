@@ -1,5 +1,17 @@
 ---
 
+{{- with .URI }}
+- path: /shoeshiner/uri.env
+  type: file
+  data: |
+    URI="{{ . }}"
+{{- end }}
+{{- if and .PartitionUUID .FilePath }}
+- path: /shoeshiner/file.env
+  type: file
+  data: |
+    FILE="{{ .FilePath }}"
+{{- end }}
 {{- with .PartitionUUID }}
 - path: /etc/systemd/system/hello-pre.target.wants
   type: rdirectory
@@ -104,4 +116,28 @@
     UseHostname=yes
     WithoutRA={{ if .Stateful }}solicit{{ else }}information-request{{ end }}
     {{- end }}
+{{- if or (and .IPv4 (not .IPv4.Static)) (and .IPv6 (not .IPv6.Static)) }}
+- path: /etc/default
+  type: rdirectory
+- path: /etc/default/inspector
+  type: file
+  data: |
+    NETWORK_INTERFACE="{{ if .VLAN }}bootvlan{{ else }}bootif{{ end }}"
+{{- end }}
+{{- if and .IPv4 (not .IPv4.Static) }}
+- path: /etc/systemd/system/hello-pre.target.wants/dhcp4-inspector.service
+  type: symlink
+  data: /usr/lib/systemd/system/dhcp4-inspector.service
+- path: /etc/systemd/system/hello-pre.target.wants/dhcp4-inspector-wait.service
+  type: symlink
+  data: /usr/lib/systemd/system/dhcp4-inspector-wait.service
+{{- end }}
+{{- if and .IPv6 (not .IPv6.Static) }}
+- path: /etc/systemd/system/hello-pre.target.wants/dhcp6-inspector.service
+  type: symlink
+  data: /usr/lib/systemd/system/dhcp6-inspector.service
+- path: /etc/systemd/system/hello-pre.target.wants/dhcp6-inspector-wait.service
+  type: symlink
+  data: /usr/lib/systemd/system/dhcp6-inspector-wait.service
+{{- end }}
 {{- end }}

@@ -12,6 +12,7 @@ TARGET_PACKAGES := " \
 	core/iproute2 \
 	core/iputils \
 	core/less \
+    core/libpcap \
 	core/lvm2 \
 	core/nano \
 	core/procps-ng \
@@ -25,7 +26,7 @@ TARGET_PACKAGES := " \
 	extra/traceroute \
 "
 ROOT_PASSWORD := ""
-APPENDIX_DIRECTORY := "examples/hello"
+APPENDIX_DIRECTORY := "boots/hello"
 BUILD_FILE := "hello.efi"
 
 .PHONY: all

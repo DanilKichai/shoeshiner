@@ -15,6 +15,7 @@ ARG TARGET_PACKAGES=" \
 	core/iproute2 \
 	core/iputils \
 	core/less \
+  core/libpcap \
 	core/lvm2 \
 	core/nano \
 	core/procps-ng \
@@ -28,18 +29,8 @@ ARG TARGET_PACKAGES=" \
 	extra/traceroute \
 "
 ARG ROOT_PASSWORD=""
-ARG APPENDIX_DIRECTORY="examples/hello"
+ARG APPENDIX_DIRECTORY="boots/hello"
 ARG BUILD_FILE="hello.efi"
-
-FROM golang:latest AS go-builder
-  COPY . /usr/src/shoeshiner
-  RUN \
-    CGO_ENABLED="0" \
-      go build \
-        -C /usr/src/shoeshiner/cmd/bootstrap \
-        -ldflags='-extldflags=-static' \
-        -o /usr/local/bin/bootstrap \
-        .
 
 FROM archlinux:base AS archlinux-fresh
   #COPY hack/etc/pacman.d/mirrorlist /etc/pacman.d/
@@ -49,6 +40,29 @@ FROM archlinux:base AS archlinux-fresh
       --sysupgrade \
       --refresh \
       --noconfirm
+
+FROM archlinux-fresh AS go-builder
+  RUN \
+    pacman \
+      --sync \
+      --noconfirm \
+      --needed \
+      core/base-devel \
+      core/libpcap \
+      extra/go
+
+  WORKDIR /usr/src/shoeshiner
+  COPY . .
+
+  ENV CGO_ENABLED=1
+  RUN \
+    go build \
+      -o /usr/local/bin/bootstrap \
+      ./cmd/bootstrap
+  RUN \
+    go build \
+      -o /usr/local/bin/inspector \
+      ./cmd/inspector
 
 FROM archlinux-fresh AS target-base
   ARG TARGET_PACKAGES
@@ -83,6 +97,7 @@ FROM archlinux-fresh AS toolchain
 FROM toolchain AS wrapper
   COPY --from=target-base /target/ /target/
   COPY --from=go-builder /usr/local/bin/bootstrap /target/usr/local/bin/
+  COPY --from=go-builder /usr/local/bin/inspector /target/usr/local/bin/
 
   ARG APPENDIX_DIRECTORY
   COPY $APPENDIX_DIRECTORY/ /target/
