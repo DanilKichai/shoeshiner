@@ -16,17 +16,17 @@ Shoeshiner or boot polisher is an occupation in which a person cleans and buffs 
 
 ### Building
 
-* Copy the example of the appendix directory to your others.
+* Copy the example boot directory to your others.
 ```
-cp -ar examples/hello ~/my_test1
-cp -ar examples/hello ~/my_test2
+cp -ar boots/hello boots/my_test1
+cp -ar boots/hello ~/my_test2
 ...
 ```
-* Make any changes to your directories.
+* Make any changes to your boots.
 * Build your applications.
 ```
-make APPENDIX_DIRECTORY="~/my_test1" BUILD_FILE="~/my_test1.efi"
-make APPENDIX_DIRECTORY="~/my_test2" BUILD_FILE="~/my_test2.efi"
+make BOOT_DIRECTORY="boots/my_test1" BUILD_FILE="my_test1.efi"
+make BOOT_DIRECTORY="~/my_test2" BUILD_FILE="~/my_test2.efi"
 ...
 ```
 * Clean build cache.
@@ -41,9 +41,8 @@ make clean
 ## Help
 
 You can also use build options.
-* TARGET_PACKAGES - please see `build/package/Dockerfile` for understanding.
-* ROOT_PASSWORD - empty password means disabled.
-* APPENDIX_DIRECTORY - see the building section of this document.
+* BUILDX_BUILDER - buildx plugin builder name (only docker driver is supported).
+* BOOT_DIRECTORY - see the building section of this document.
 * BUILD_FILE - see the building section of this document.
 
 ## Authors
