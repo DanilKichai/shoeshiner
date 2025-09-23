@@ -27,7 +27,6 @@ FROM archlinux AS bootstrap
   ENV CGO_ENABLED=0
   RUN \
     go build \
-      -ldflags='-extldflags=-static' \
       -o /usr/local/bin/bootstrap \
       ./cmd/bootstrap
 
