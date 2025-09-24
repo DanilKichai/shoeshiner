@@ -55,6 +55,6 @@ FROM shoeshiner:archlinux
     fi
 
   RUN mkdir --parents /shoeshiner/efivars
-  COPY --from=bootstrap /usr/local/bin/bootstrap /shoeshiner/bin/
+  COPY --from=bootstrap /bootstrap /shoeshiner/bin/
 
   COPY . /
