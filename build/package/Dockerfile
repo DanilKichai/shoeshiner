@@ -27,7 +27,7 @@ FROM archlinux AS bootstrap
   ENV CGO_ENABLED=0
   RUN \
     go build \
-      -o /usr/local/bin/bootstrap \
+      -o /bootstrap \
       ./cmd/bootstrap
 
 FROM archlinux AS toolchain
