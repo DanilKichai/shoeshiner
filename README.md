@@ -50,7 +50,9 @@ You can also use build options.
 * [Danil Kichai](https://github.com/DanilKichai)
 
 ## Version History
-
+* v0.2.0
+    * Exposed rootfs build to separated Dockerfile (owned by boot directory now)
+    * Added rendering of `/shoeshiner/run/*.env` at runtime for the hello boot
 * v0.1.0
     * Initial release
 
