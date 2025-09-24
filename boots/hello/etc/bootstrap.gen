@@ -1,5 +1,19 @@
 ---
 
+- path: /shoeshiner/run
+  type: rdirectory
+{{- with .URI }}
+- path: /shoeshiner/run/uri.env
+  type: file
+  data: |
+    URI="{{ . }}"
+{{- end }}
+{{- if and .PartitionUUID .FilePath }}
+- path: /shoeshiner/run/file.env
+  type: file
+  data: |
+    FILE="{{ .FilePath }}"
+{{- end }}
 {{- with .PartitionUUID }}
 - path: /etc/systemd/system/hello-pre.target.wants
   type: rdirectory
