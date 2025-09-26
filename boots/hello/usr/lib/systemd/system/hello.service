@@ -1,7 +1,7 @@
 [Unit]
 Description=Hello
 Requires=hello-pre.target
-After=hello-pre.target
+After=hello-pre.target systemd-hostnamed.service
 IgnoreOnIsolate=yes
 ConditionPathExists=/dev/tty0
 
