@@ -26,7 +26,7 @@ cp -ar boots/hello ~/my_test2
 * Build your applications.
 ```
 make BOOT_DIRECTORY="boots/my_test1" BUILD_FILE="my_test1.efi"
-make BOOT_DIRECTORY="~/my_test2" BUILD_FILE="~/my_test2.efi"
+make BOOT_DIRECTORY="~/my_test2" BUILD_FILE="my_test2.efi"
 ...
 ```
 * Clean build cache.
