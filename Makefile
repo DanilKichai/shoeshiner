@@ -1,5 +1,6 @@
 BUILDX_BUILDER := "default"
 BOOT_DIRECTORY := "boots/hello"
+BOOT_BUILD_APPEND :=
 BUILD_FILE := "hello.efi"
 
 .PHONY: all
@@ -35,6 +36,7 @@ boot: archlinux bootstrap
 		--file "$(BOOT_DIRECTORY)/Dockerfile" \
 		--output "type=docker" \
 		--tag shoeshiner:boot \
+		$(BOOT_BUILD_APPEND) \
 		"$(BOOT_DIRECTORY)"
 
 "$(BUILD_FILE)": archlinux boot
