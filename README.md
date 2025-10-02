@@ -43,6 +43,7 @@ make clean
 You can also use build options.
 * BUILDX_BUILDER - buildx plugin builder name (only docker driver is supported).
 * BOOT_DIRECTORY - see the building section of this document.
+* BOOT_BUILD_APPEND - build append for boot (see Makefile).
 * BUILD_FILE - see the building section of this document.
 
 ## Authors
