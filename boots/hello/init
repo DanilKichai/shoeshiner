@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-fatal () {
+function fatal {
     local MESSAGE="$1"
     local DELAY=30
 
