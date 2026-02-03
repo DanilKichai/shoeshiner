@@ -51,6 +51,9 @@ You can also use build options.
 * [Danil Kichai](https://github.com/DanilKichai)
 
 ## Version History
+* v0.2.1
+    * General improvements and minor bug fixes
+    * Made BOOT_BUILD_APPEND configurable via Makefile arguments
 * v0.2.0
     * Exposed rootfs build to separated Dockerfile (owned by boot directory now)
     * Added rendering of `/shoeshiner/run/*.env` at runtime for the hello boot

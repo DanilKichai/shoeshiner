@@ -5,6 +5,21 @@ ARG BUILD_FILE="hello.efi"
 
 FROM archlinux:base AS archlinux
   #COPY hack/etc/pacman.d/mirrorlist /etc/pacman.d/
+  RUN sed -i 's/^#DisableSandbox/DisableSandbox/' /etc/pacman.conf
+
+  RUN \
+    rm \
+      --recursive \
+      --force \
+      /etc/pacman.d/gnupg && \
+    pacman-key --init && \
+    pacman-key --populate archlinux && \
+    pacman \
+      --sync \
+      --refresh \
+      --noconfirm \
+      archlinux-keyring
+
   RUN \
     pacman \
       --sync \
