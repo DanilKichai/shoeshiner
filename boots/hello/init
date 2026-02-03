@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-fatal () {
+function fatal {
     local MESSAGE="$1"
-    local DELAY="30"
+    local DELAY=30
 
     echo "$MESSAGE"
-    echo "The system will be rebooted in ${DELAY} seconds. Press enter to skip..."
+    echo "The system will be rebooted in $DELAY seconds. Press enter to skip..."
 
-    timeout --foreground "${DELAY}" bash -c "read" && sleep infinity
+    timeout --foreground "$DELAY" bash -c read && sleep infinity
 
     reboot --force
     exit 1

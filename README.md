@@ -26,7 +26,7 @@ cp -ar boots/hello ~/my_test2
 * Build your applications.
 ```
 make BOOT_DIRECTORY="boots/my_test1" BUILD_FILE="my_test1.efi"
-make BOOT_DIRECTORY="~/my_test2" BUILD_FILE="~/my_test2.efi"
+make BOOT_DIRECTORY="~/my_test2" BUILD_FILE="my_test2.efi"
 ...
 ```
 * Clean build cache.
@@ -43,6 +43,7 @@ make clean
 You can also use build options.
 * BUILDX_BUILDER - buildx plugin builder name (only docker driver is supported).
 * BOOT_DIRECTORY - see the building section of this document.
+* BOOT_BUILD_APPEND - build append for boot (see Makefile).
 * BUILD_FILE - see the building section of this document.
 
 ## Authors
@@ -50,6 +51,9 @@ You can also use build options.
 * [Danil Kichai](https://github.com/DanilKichai)
 
 ## Version History
+* v0.2.1
+    * General improvements and minor bug fixes
+    * Made BOOT_BUILD_APPEND configurable via Makefile arguments
 * v0.2.0
     * Exposed rootfs build to separated Dockerfile (owned by boot directory now)
     * Added rendering of `/shoeshiner/run/*.env` at runtime for the hello boot
