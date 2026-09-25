@@ -1,3 +1,5 @@
+# If the file contains no valid records, fall back to the default upstream mirrorlist.
+
 ## Russia
 #Server = http://archlinux.gay/archlinux/$repo/os/$arch
 #Server = https://archlinux.gay/archlinux/$repo/os/$arch

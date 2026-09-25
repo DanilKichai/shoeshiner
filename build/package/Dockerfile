@@ -2,10 +2,25 @@
 
 ARG BOOT_DIRECTORY="boots/hello"
 ARG BUILD_FILE="hello.efi"
+ARG MIRRORLIST_FILE="hack/etc/pacman.d/mirrorlist"
 
 FROM archlinux:base AS archlinux
-  #COPY hack/etc/pacman.d/mirrorlist /etc/pacman.d/
-  RUN sed -i 's/^#DisableSandbox/DisableSandbox/' /etc/pacman.conf
+  ARG MIRRORLIST_FILE
+  COPY $MIRRORLIST_FILE /etc/pacman.d/mirrorlist.candidate
+  RUN \
+    if \
+      grep \
+        --quiet \
+        --invert-match \
+        --extended-regexp '^[[:space:]]*([#]|$)' \
+        /etc/pacman.d/mirrorlist.candidate; \
+    then \
+      mv /etc/pacman.d/mirrorlist.candidate /etc/pacman.d/mirrorlist; \
+    else \
+      rm --force /etc/pacman.d/mirrorlist.candidate; \
+    fi
+
+  RUN sed --in-place 's/^#DisableSandbox/DisableSandbox/' /etc/pacman.conf
 
   RUN \
     rm \
