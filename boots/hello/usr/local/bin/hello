@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
 
+# Wait for all systemd jobs to complete before proceeding
+WAIT_PERIOD_SECONDS=1
+while [ "$(
+  busctl \
+    --address=unix:path=/run/dbus/system_bus_socket \
+	call org.freedesktop.systemd1 \
+	/org/freedesktop/systemd1 \
+	org.freedesktop.systemd1.Manager \
+	ListJobs \
+	--json=short | \
+	  jq '.data[0] | length'
+)" -gt 0 ]; do
+	sleep "$WAIT_PERIOD_SECONDS"
+done
+
 echo "Hello World!"
 exec bash

@@ -2,6 +2,7 @@ BUILDX_BUILDER := "default"
 BOOT_DIRECTORY := "boots/hello"
 BOOT_BUILD_APPEND :=
 BUILD_FILE := "hello.efi"
+MIRRORLIST_FILE := "hack/etc/pacman.d/mirrorlist"
 
 .PHONY: all
 all: "$(BUILD_FILE)"
@@ -15,6 +16,7 @@ archlinux:
 		--target archlinux \
 		--output "type=docker" \
 		--tag shoeshiner:archlinux \
+		--build-arg MIRRORLIST_FILE="$(MIRRORLIST_FILE)" \
 		.
 
 .PHONY: bootstrap
@@ -31,7 +33,7 @@ bootstrap: archlinux
 .PHONY: boot
 boot: archlinux bootstrap
 	docker buildx build \
-		--builder default \
+		--builder "$(BUILDX_BUILDER)" \
 		--progress plain \
 		--file "$(BOOT_DIRECTORY)/Dockerfile" \
 		--output "type=docker" \
@@ -41,7 +43,7 @@ boot: archlinux bootstrap
 
 "$(BUILD_FILE)": archlinux boot
 	docker buildx build \
-		--builder default \
+		--builder "$(BUILDX_BUILDER)" \
 		--progress plain \
 		--file build/package/Dockerfile \
 		--target shoeshiner \

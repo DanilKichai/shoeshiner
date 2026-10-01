@@ -2,30 +2,31 @@
 # check=skip=SecretsUsedInArgOrEnv
 
 ARG TARGET_PACKAGES=" \
-	core/bash \
-	core/curl \
-	core/coreutils \
-	core/cryptsetup \
-	core/dosfstools \
-	core/e2fsprogs \
-	core/efibootmgr \
-	core/gawk \
-	core/grep \
-	core/gzip \
-	core/iproute2 \
-	core/iputils \
-	core/less \
-	core/lvm2 \
-	core/nano \
-	core/procps-ng \
-	core/sed \
-	core/systemd \
-	core/udev \
-	core/util-linux \
-	extra/kexec-tools \
-	extra/polkit \
-	extra/tcpdump \
-	extra/traceroute \
+  core/bash \
+  core/curl \
+  core/coreutils \
+  core/cryptsetup \
+  core/dosfstools \
+  core/e2fsprogs \
+  core/efibootmgr \
+  core/gawk \
+  core/grep \
+  core/gzip \
+  core/iproute2 \
+  core/iputils \
+  core/less \
+  core/lvm2 \
+  core/nano \
+  core/procps-ng \
+  core/sed \
+  core/systemd \
+  core/udev \
+  core/util-linux \
+  extra/jq \
+  extra/kexec-tools \
+  extra/polkit \
+  extra/tcpdump \
+  extra/traceroute \
 "
 ARG ROOT_PASSWORD=""
 

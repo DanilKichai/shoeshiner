@@ -19,15 +19,13 @@ Shoeshiner or boot polisher is an occupation in which a person cleans and buffs 
 * Copy the example boot directory to your others.
 ```
 cp -ar boots/hello boots/my_test1
-cp -ar boots/hello ~/my_test2
-...
 ```
-* Make any changes to your boots.
+* Make any changes to your boot configuration.
 * Build your applications.
 ```
-make BOOT_DIRECTORY="boots/my_test1" BUILD_FILE="my_test1.efi"
-make BOOT_DIRECTORY="~/my_test2" BUILD_FILE="my_test2.efi"
-...
+make \
+    BOOT_DIRECTORY="boots/my_test1" \
+    BUILD_FILE="test/esp/EFI/BOOT/BOOTX64.EFI"
 ```
 * Clean build cache.
 ```
@@ -37,26 +35,39 @@ make clean
 ### Executing program
 
 * Use the EFI file for its intended purpose.
+```
+qemu-system-x86_64 \
+    -enable-kvm \
+    -m 2G \
+    -bios /usr/share/edk2/x64/OVMF.4m.fd \
+    -drive format=raw,file=fat:rw:test/esp \
+    -display gtk,gl=on
+```
 
 ## Help
 
 You can also use build options.
-* BUILDX_BUILDER - buildx plugin builder name (only docker driver is supported).
-* BOOT_DIRECTORY - see the building section of this document.
-* BOOT_BUILD_APPEND - build append for boot (see Makefile).
-* BUILD_FILE - see the building section of this document.
+* BUILDX_BUILDER - The buildx plugin builder name (only docker driver is supported).
+* BOOT_DIRECTORY - See the building section of this document.
+* BOOT_BUILD_APPEND - Build append for boot (see the Makefile).
+* BUILD_FILE - See the building section of this document.
+* MIRRORLIST_FILE - The pacman mirrorlist (a.k.a. `hack/etc/pacman.d/mirrorlist`).
 
 ## Authors
 
 * [Danil Kichai](https://github.com/DanilKichai)
 
 ## Version History
+* v0.2.2
+    * Made `MIRRORLIST_FILE` configurable via Makefile arguments.
+    * Improved the `hello` example boot configuration.
+    * Improved `README.md`.
 * v0.2.1
-    * General improvements and minor bug fixes
-    * Made BOOT_BUILD_APPEND configurable via Makefile arguments
+    * Implemented general improvements and minor bug fixes.
+    * Made `BOOT_BUILD_APPEND` configurable via Makefile arguments.
 * v0.2.0
-    * Exposed rootfs build to separated Dockerfile (owned by boot directory now)
-    * Added rendering of `/shoeshiner/run/*.env` at runtime for the hello boot
+    * Moved the rootfs build to a separate Dockerfile (now owned by the `boot` directory).
+    * Added rendering of `/shoeshiner/run/*.env` at runtime for the `hello` boot.
 * v0.1.0
     * Initial release
 
